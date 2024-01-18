@@ -1,7 +1,7 @@
 export default function Dice(props) {
     return (
-        <div className='dice'>
+        <button className={`${props.hold ? "hold" : ""} dice`} onClick={props.holdDice}>
             <span>{props.value}</span>
-        </div>
+        </button>
     )
 }

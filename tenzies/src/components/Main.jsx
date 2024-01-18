@@ -20,20 +20,37 @@ export default function Main() {
                 hold: false
             })
         }
-        console.log(newDice)
+        // console.log(newDice)
         setDiceValues(newDice)
     }, [])
 
     
-    const rollDice = function() {
-        console.log("Roll the dice")
+    // const rollDice = function() {
+    //     console.log("Roll the dice")
+    // }
+    
+    const holdDice = function(diceId) {
+        setDiceValues(prevDiceValues => {
+            return prevDiceValues.map(prevDice => {
+                return prevDice.id === diceId ?
+                    {
+                        ...prevDice,
+                        hold: !prevDice.hold
+                    } :
+                    prevDice
+            })
+        })
+
     }
     
-    const holdDice = function() {
-        console.log("Hold the dice")
-    }
-    
-    const diceElements = diceValues.map((dice) => <Dice value={dice.value} key={dice.id} hold={holdDice}/>)
+    const diceElements = diceValues.map((dice) => (
+        <Dice 
+            value={dice.value} 
+            key={dice.id} 
+            holdDice={() => holdDice(dice.id)}
+            hold={dice.hold}
+        />
+    ))
     
     return (
         <div className='container'>

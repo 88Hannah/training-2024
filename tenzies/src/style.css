@@ -38,6 +38,10 @@
     justify-content: center;
     align-items: center;
   }
+
+  .dice.hold {
+    background-color: rgb(36, 167, 36);
+  }
   
   .dice span {
     font-size: 2rem;
