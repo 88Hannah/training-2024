@@ -20,14 +20,22 @@ export default function Main() {
                 hold: false
             })
         }
-        // console.log(newDice)
         setDiceValues(newDice)
     }, [])
 
     
-    // const rollDice = function() {
-    //     console.log("Roll the dice")
-    // }
+    const rollDice = function() {
+        setDiceValues(prevDiceValues => {
+            return prevDiceValues.map(prevDice => {
+                return prevDice.hold ?
+                    prevDice :
+                    {
+                        ...prevDice,
+                        value: randomDice()
+                    }
+            })
+        })
+    }
     
     const holdDice = function(diceId) {
         setDiceValues(prevDiceValues => {
@@ -40,7 +48,6 @@ export default function Main() {
                     prevDice
             })
         })
-
     }
     
     const diceElements = diceValues.map((dice) => (
@@ -57,6 +64,7 @@ export default function Main() {
             <div className='dice-container'>
                 {diceElements}
             </div>
+            <button className='roll-button' onClick={rollDice}>Roll dice</button>
         </div>
     )
 }
