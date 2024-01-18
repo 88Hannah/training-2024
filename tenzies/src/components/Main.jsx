@@ -1,35 +1,20 @@
 import React from 'react'
 import Dice from './Dice'
+import Confetti from 'react-confetti'
 
 export default function Main() {
-
-    const [diceValues, setDiceValues] = React.useState([])
-
-    const [gameComplete, setGameComplete] = React.useState(false)
-
     const numberOfDice = 10
 
     const randomDice = function() {
         return Math.ceil(Math.random() * 6)
     } 
 
-    // React.useEffect(() => {
-    //     const newDice = []
-    //     for(let i=0; i<numberOfDice; i++) {
-    //         newDice.push({
-    //             value: randomDice(),
-    //             id: i + 1,
-    //             hold: false
-    //         })
-    //     }
-    //     setDiceValues(newDice)
-    // }, [])
+    const [diceValues, setDiceValues] = React.useState(diceSetup())
 
-    if(diceValues.length === 0) {
-        newGameSetup()
-    }
+    const [gameComplete, setGameComplete] = React.useState(false)
 
-    function newGameSetup() {
+
+    function diceSetup() {
         const newDice = []
         for(let i=0; i<numberOfDice; i++) {
             newDice.push({
@@ -38,12 +23,11 @@ export default function Main() {
                 hold: false
             })
         }
-        setDiceValues(newDice)
+        return newDice;
     }
 
 
     React.useEffect(() => {
-
         const removeTimeOut = setTimeout(() => {
             const firstNotHeld = diceValues.find(dice => !dice.hold)
             if (!firstNotHeld) {
@@ -55,7 +39,6 @@ export default function Main() {
                     } 
                 })
                 if (complete) {
-                    console.log("Game finished")
                     setGameComplete(true)
                 }
             }
@@ -64,10 +47,10 @@ export default function Main() {
         return () => clearTimeout(removeTimeOut)
     }, [diceValues])
 
-    
+
     const rollDice = function() {
         if(gameComplete) {
-            newGameSetup()
+            setDiceValues(diceSetup())
             setGameComplete(false)
         } else {
             setDiceValues(prevDiceValues => {
@@ -83,6 +66,7 @@ export default function Main() {
         }
     }
     
+
     const holdDice = function(diceId) {
         setDiceValues(prevDiceValues => {
             return prevDiceValues.map(prevDice => {
@@ -96,6 +80,7 @@ export default function Main() {
         })
     }
     
+
     const diceElements = diceValues.map((dice) => (
         <Dice 
             value={dice.value} 
@@ -105,20 +90,24 @@ export default function Main() {
         />
     ))
     
+
     return (
-        <div className='container'>
-            <div className='intro-text'>
-                <h1>Tenzies</h1>
-                <p>Keep rolling untill all the dice are the same value. Click each die to freeze it between rolls.</p>
+        <main>
+            {gameComplete && <Confetti />}
+            <div className='container'>
+                <div className='intro-text'>
+                    <h1>Tenzies</h1>
+                    <p>Keep rolling untill all the dice are the same value. Click each die to freeze it between rolls.</p>
+                </div>
+                <div className='dice-container'>
+                    {diceElements}
+                </div>
+                <button 
+                    className='roll-button' 
+                    onClick={rollDice}>
+                        {gameComplete ? 'New game' : 'Roll dice'}
+                </button>
             </div>
-            <div className='dice-container'>
-                {diceElements}
-            </div>
-            <button 
-                className='roll-button' 
-                onClick={rollDice}>
-                    {gameComplete ? 'New game' : 'Roll dice'}
-            </button>
-        </div>
+        </main>
     )
 }

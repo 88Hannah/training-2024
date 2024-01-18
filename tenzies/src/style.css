@@ -5,18 +5,20 @@
   body {
     margin: 0;
     background-color: rgb(233, 201, 23);
-    padding: 2rem;
+    padding: 1rem;
     font-family: "Roboto Mono", monospace;
     font-optical-sizing: auto;
     font-style: normal;
+    display: flex;  
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
   }
   
   .container {
-    height: 600px;
-    width: 80%;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
+    height: min-content;
+    width: 100%;
+    padding: 2rem 1rem;
     background-color: purple;
     border-radius: 0.5rem;
     display: flex;
@@ -28,7 +30,7 @@
   .intro-text {
     color: antiquewhite;
     text-align: center;
-    width: 70%;
+    max-width: 600px;
     margin-bottom: 2rem;
   }
 
@@ -42,11 +44,12 @@
   }
 
   .dice-container {
-    width: 80%;
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    justify-items: center;
-    gap: 2rem;
+    max-width: 400px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-shrink: 0;
+    gap: 1rem;
   }
   
   .dice {
@@ -58,6 +61,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
   }
 
   .dice.hold {
@@ -66,6 +70,7 @@
   
   .dice span {
     font-size: 2rem;
+    font-family: "Roboto Mono", monospace;
   }
   
   .roll-button {
@@ -74,10 +79,23 @@
     background-color: rgb(40, 201, 223);
     border-radius: 1rem;
     padding: 0.5rem 1rem;
+    font-family: "Roboto Mono", monospace;
   }
 
-  .roll-button:hover {
+  .roll-button:active {
     background-color: rgb(35, 180, 199);
     cursor: pointer;
+  }
+
+  @media (min-width: 768px) {
+    body {
+        padding: 2rem;
+    }
+
+    .container {
+        height: min-content;
+        max-width: 800px;
+      }
+
   }
   
