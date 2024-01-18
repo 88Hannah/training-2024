@@ -1,4 +1,46 @@
-h1 {
-    color: blue;
-}
-
+* {
+    box-sizing: border-box;
+  }
+  
+  body {
+    margin: 0;
+    background-color: rgb(233, 201, 23);
+    padding: 2rem;
+  }
+  
+  .container {
+    height: 600px;
+    width: 80%;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: purple;
+    border-radius: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .dice-container {
+    width: 80%;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2rem;
+  }
+  
+  .dice {
+    height: 60px;
+    width: 60px;
+    background-color: antiquewhite;
+    border-radius: 0.5rem;
+    box-shadow: 1px 3px 2px 0px rgba(61, 0, 61, 1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .dice span {
+    font-size: 2rem;
+  }
+  
+  

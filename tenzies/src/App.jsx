@@ -1,8 +1,9 @@
-function App() {
+import Main from './components/Main'
 
+function App() {
   return (
     <>
-      <h1>Tenzies</h1>
+      <Main />
     </>
   )
 }
