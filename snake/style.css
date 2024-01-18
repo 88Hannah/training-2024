@@ -1,0 +1,27 @@
+* {
+    box-sizing: border-box;
+}
+
+.game-border-1 {
+    width: max-content;
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(20, 20px);
+    grid-template-rows: repeat(20, 20px);
+    background-color: lightpink;
+}
+
+.snake {
+    width: 20px;
+    height: 20px;
+    background-color: green;
+}
+
+.food {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: orangered;
+}
