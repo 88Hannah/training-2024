@@ -2,9 +2,10 @@ import React from 'react'
 import { nanoid } from 'nanoid'
 import QuizAnswer from './QuizAnswer'
 
-export default function QuizQuestion({question, correct, incorrect}) {
+export default function QuizQuestion({questionId, question, correct, incorrect, processSelection}) {
 
     const [answersArray, setAnswersArray] = React.useState([])
+    const [isAnswered, setIsAnswered] = React.useState(false)
 
     function selectAnswer(id) {
         setAnswersArray(prevAnswersArray => (
@@ -21,14 +22,38 @@ export default function QuizQuestion({question, correct, incorrect}) {
                 
             })
         ))
+
+        if(isAnswered === false) {
+            setIsAnswered(true)
+        }
+
+        
     }
+
+    
+    React.useEffect(() => {
+
+        let answerCorrect = false
+        if(answersArray.length > 0) {
+            const correctlySelectedIndex = answersArray.findIndex(answer => answer.correct && answer.selected)
+
+            if (correctlySelectedIndex > 0) {
+                answerCorrect = true
+            }
+        }
+
+        processSelection(questionId, isAnswered, answerCorrect)
+        console.log("Are you running the answerArray useEffect?")
+
+    }, [answersArray])
+
 
 
     React.useEffect(() => {
         console.log("Running")
         const randomPosition = Math.floor(Math.random() * incorrect.length)
     
-        const allAnswers = incorrect
+        const allAnswers = [...incorrect]
     
         allAnswers.splice(randomPosition, 0, correct)
 
@@ -47,7 +72,8 @@ export default function QuizQuestion({question, correct, incorrect}) {
                 key={answer.id} 
                 option={answer.answer}
                 selectAnswer={() => selectAnswer(answer.id)}
-                selected={answer.selected}/>
+                selected={answer.selected}
+                correct={answer.correct}/>
         )
     )
     

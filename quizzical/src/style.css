@@ -10,3 +10,12 @@ h1 {
 .option.selected {
     background-color: lightgreen;
 }
+
+
+.marked .option.selected.correct {
+    background-color: green;
+}
+
+.marked .option.selected {
+    background-color: red;
+}
