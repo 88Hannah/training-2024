@@ -1,0 +1,108 @@
+body {
+    font-family: Optima, Candara, 'Noto Sans', source-sans-pro, sans-serif;
+}
+
+.game-container {
+    max-width: 600px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.intro {
+    text-align: center;
+}
+
+h1 {
+    font-size: 6rem;
+    color: red;
+    text-align: center;
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+}
+
+@media(max-width: 600px) {
+    h1 {
+        font-size: 3rem;
+    }
+}
+
+.intro p {
+    font-size: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+button {
+    font-family: Optima, Candara, 'Noto Sans', source-sans-pro, sans-serif;
+    border-radius: 8px;
+    border: none;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+.intro button,
+.submit,
+.play-again {
+    font-size: 1.2rem;
+    padding: 0.5rem 1rem;
+    background-color: hsl(195, 47%, 35%);
+    color: white;
+    margin-top: 2rem;
+}
+
+.submit,
+.play-again {
+    margin-right: auto;
+    margin-left: auto;
+    display: block;
+}
+
+.intro button:hover,
+.submit:hover,
+.play-again:hover {
+    background-color: hsl(195, 47%, 25%);
+}
+
+.quiz-question {
+    margin-bottom: 2rem;
+}
+
+.quiz-question p {
+    margin-bottom: 1rem;
+}
+
+.question-answers {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.option {
+    padding: 0.3rem 0.9rem;
+}
+
+.option:hover {
+    background-color: hsl(195, 47%, 85%);
+}
+
+.option.selected {
+    background-color: hsl(195, 47%, 55%);
+}
+
+
+.marked .option.selected.correct {
+    background-color: limegreen;
+}
+
+.marked .option.selected {
+    background-color: rgb(250, 134, 134);
+}
+
+.marked .option.correct {
+    background-color: rgb(151, 199, 151);
+}
+
+.message-text {
+    font-size: 1.4rem;
+}
