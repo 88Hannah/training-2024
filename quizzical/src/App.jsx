@@ -25,14 +25,15 @@ function App() {
   // To do ...
   // Let the app know if the answers are correct or not
   // show a score
+  // remove console logs
 
-  function processSelection(questionId, answered, correct) {
+  function processSelection(questionId, answerId, correct) {
     setQuizData(prevQuizData => {
       return prevQuizData.map(prevQuestion => {
         return prevQuestion.id === questionId ?
           {
             ...prevQuestion,
-            answered,
+            answered: answerId ? true : false,
             correct
           } :
           { ...prevQuestion }

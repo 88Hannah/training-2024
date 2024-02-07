@@ -5,52 +5,42 @@ import QuizAnswer from './QuizAnswer'
 export default function QuizQuestion({questionId, question, correct, incorrect, processSelection, isMarked}) {
 
     const [answersArray, setAnswersArray] = React.useState([])
-    const [isAnswered, setIsAnswered] = React.useState(false)
+    const [currentAnswerId, setCurrentAnswerId] = React.useState("")
 
     function selectAnswer(id) {
-        setAnswersArray(prevAnswersArray => (
-            prevAnswersArray.map(answer => {
-                return answer.id === id ?
-                    {
-                        ...answer,
-                        selected: true
-                    } :
-                    {
-                        ...answer,
-                        selected: false
-                    }
-                
-            })
-        ))
-
-        if(isAnswered === false) {
-            setIsAnswered(true)
-        }
-
-        
+        if (currentAnswerId != id) {
+            setCurrentAnswerId(id)
+            
+            setAnswersArray(prevAnswersArray => (
+                prevAnswersArray.map(answer => {
+                    return answer.id === id ?
+                        {
+                            ...answer,
+                            selected: true
+                        } :
+                        {
+                            ...answer,
+                            selected: false
+                        }
+                })
+            ))
+        } 
     }
 
     
     React.useEffect(() => {
 
-        let answerCorrect = false
-        if(answersArray.length > 0) {
+        if(currentAnswerId) {
             const correctlySelectedIndex = answersArray.findIndex(answer => answer.correct && answer.selected)
-
-            if (correctlySelectedIndex > 0) {
-                answerCorrect = true
-            }
+            let answerCorrect = correctlySelectedIndex >= 0 ? true : false
+            processSelection(questionId, currentAnswerId, answerCorrect)
         }
-
-        processSelection(questionId, isAnswered, answerCorrect)
-        console.log("Are you running the answerArray useEffect?")
 
     }, [answersArray])
 
 
-
     React.useEffect(() => {
-        console.log("Running")
+        console.log("Running the use effect in start up for each quiz question")
         const randomPosition = Math.floor(Math.random() * incorrect.length)
     
         const allAnswers = [...incorrect]
