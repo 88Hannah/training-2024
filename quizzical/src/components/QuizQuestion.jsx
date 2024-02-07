@@ -73,9 +73,11 @@ export default function QuizQuestion({questionId, question, correct, incorrect, 
     
 
     return (
-        <div>
+        <div className='quiz-question'>
             <p>{question}</p>
-            {answerElements}
+            <div className='question-answers'>
+                {answerElements}
+            </div>
         </div>
     )
 }

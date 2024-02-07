@@ -114,20 +114,23 @@ function App() {
 
   return (
     <>
+      <div className='game-container'>
+        <h1>Quizical</h1>
+        {quizState === 'notStarted' && 
+          <div className='intro'>
+            <p>How good is your sports knowledge?</p>
+            <button onClick={startQuiz}>Start quiz</button>
+          </div>}
+        {(quizState === 'started' || quizState === 'finished') &&
+          <div className={quizState === 'finished' ? 'marked' : ''}>
+            {quizQuestions}
+            {quizState != 'finished' && <button className='submit' onClick={markAnswers}>Submit</button>}
+            {displayMessage && <p className='message-text'>{displayMessage}</p>}
+            {quizState === 'finished' && <button className='play-again' onClick={startQuiz}>Play again</button>}
+          </div>
+        }
+      </div>
 
-      {quizState === 'notStarted' && 
-        <div>
-          <h1>Hello</h1>
-          <button onClick={startQuiz}>Let's play!</button>
-        </div>}
-      {(quizState === 'started' || quizState === 'finished') &&
-        <div className={quizState === 'finished' ? 'marked' : ''}>
-          {quizQuestions}
-          {quizState != 'finished' && <button onClick={markAnswers}>Submit</button>}
-          {displayMessage && <p>{displayMessage}</p>}
-          {quizState === 'finished' && <button onClick={startQuiz}>Play again</button>}
-        </div>
-      }
 
     </>
   )
