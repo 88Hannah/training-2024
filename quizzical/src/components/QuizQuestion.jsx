@@ -2,7 +2,7 @@ import React from 'react'
 import { nanoid } from 'nanoid'
 import QuizAnswer from './QuizAnswer'
 
-export default function QuizQuestion({questionId, question, correct, incorrect, processSelection}) {
+export default function QuizQuestion({questionId, question, correct, incorrect, processSelection, isMarked}) {
 
     const [answersArray, setAnswersArray] = React.useState([])
     const [isAnswered, setIsAnswered] = React.useState(false)
@@ -66,12 +66,16 @@ export default function QuizQuestion({questionId, question, correct, incorrect, 
             }
         )))
     }, [])
+
+    const allowSelectAnswer = function(id) {
+        return isMarked ? null : () => selectAnswer(id)
+    }
     
     const answerElements = answersArray.map(answer => (
             <QuizAnswer 
                 key={answer.id} 
                 option={answer.answer}
-                selectAnswer={() => selectAnswer(answer.id)}
+                selectAnswer={allowSelectAnswer(answer.id)}
                 selected={answer.selected}
                 correct={answer.correct}/>
         )

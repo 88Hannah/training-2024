@@ -1,11 +1,12 @@
 import React from 'react'
 import { nanoid } from 'nanoid'
+import { decode } from 'html-entities'
 import QuizQuestion from './components/QuizQuestion'
 import tempData from './tempData'
 
 function App() {
 
-  const [quizStarted, setQuizStarted] = React.useState(false)
+  const [quizState, setQuizState] = React.useState('notStarted')
 
   const [quizData, setQuizData] = React.useState([])
 
@@ -13,9 +14,7 @@ function App() {
 
   const [displayMessage, setDisplayMessage] = React.useState("")
   
-  const [isMarked, setIsMarked] = React.useState(false)
 
-  
   // React.useEffect(() => {
   //   fetch("https://opentdb.com/api.php?amount=5&category=21&difficulty=easy&type=multiple")
   //     .then(res => res.json())
@@ -50,37 +49,36 @@ function App() {
         question={question.question} 
         correct={question.correct_answer} 
         incorrect={question.incorrect_answers}
-        processSelection={processSelection}/>
+        processSelection={processSelection}
+        isMarked={quizState === 'finished' ? true : false}/>
     )
   })
 
   const startQuiz = function() {
-    // fetch("https://opentdb.com/api.php?amount=5&category=21&difficulty=easy&type=multiple")
-    //   .then(res => res.json())
-    //   .then(data => {
+    fetch("https://opentdb.com/api.php?amount=5&category=21&difficulty=easy&type=multiple")
+      .then(res => res.json())
+      .then(data => {
 
-    //     const newQuizData = data.results.map(question => (
-    //       {
-    //         ... question,
-    //         id: nanoid(),
-    //         answered: false,
-    //         correct: null
-    //       }
-    //     ))
-    //     setQuizData(newQuizData)
+        const newQuizData = data.results.map(question => (
+          {
+            ... question,
+            question: decode(question.question),
+            id: nanoid(),
+            answered: false,
+            correct: null
+          }
+        ))
+        setQuizData(newQuizData)
 
-    //   }
-    //   )
-    //   .then(() => setQuizStarted(true))
-    //   .catch((error) => {
-    //     console.error("Not good!")
-    //     console.log(error)
-    //     setQuizData(tempData())
-    //     setQuizStarted(true)
-    //   });
-
-    setQuizData(tempData())
-    setQuizStarted(true)
+      }
+      )
+      .then(() => setQuizState('started'))
+      .catch((error) => {
+        console.error("Not good!")
+        console.log(error)
+        setQuizData(tempData())
+        setQuizState('started')
+      });
 
   }
     
@@ -102,10 +100,10 @@ function App() {
         }
       })
 
-      setIsMarked(true)
+      setQuizState('finished')
+      setScore(correctCount)
       setDisplayMessage(`You got ${score} out of ${quizData.length} correct!`)
       console.log("This is running ...")
-      setScore(correctCount)
       console.log(correctCount)
     }
   }
@@ -115,13 +113,13 @@ function App() {
   return (
     <>
 
-      {!quizStarted && 
+      {quizState === 'notStarted' && 
         <div>
           <h1>Hello</h1>
           <button onClick={startQuiz}>Let's play!</button>
         </div>}
-      {quizStarted &&
-        <div className={isMarked ? 'marked' : ''}>
+      {(quizState === 'started' || quizState === 'finished') &&
+        <div className={quizState === 'finished' ? 'marked' : ''}>
           {quizQuestions}
           <button onClick={markAnswers}>Submit</button>
           {displayMessage && <p>{displayMessage}</p>}
