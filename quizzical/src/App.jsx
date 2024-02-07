@@ -7,11 +7,8 @@ import tempData from './tempData'
 function App() {
 
   const [quizState, setQuizState] = React.useState('notStarted')
-
   const [quizData, setQuizData] = React.useState([])
-
-  const [score, setScore] = React.useState(0)
-
+  const [score, setScore] = React.useState("")
   const [displayMessage, setDisplayMessage] = React.useState("")
   
 
@@ -70,25 +67,23 @@ function App() {
           }
         ))
         setQuizData(newQuizData)
+        setScore("")
+        setDisplayMessage("")
 
       }
       )
       .then(() => setQuizState('started'))
       .catch((error) => {
-        console.error("Not good!")
         console.log(error)
         setQuizData(tempData())
         setQuizState('started')
       });
 
   }
-    
-  // console.log(quizData)
+
 
   function markAnswers() {
     const uncomplete = quizData.findIndex(question => question.answered === false)
-
-    console.log(uncomplete)
 
     if (uncomplete >= 0) {
       setDisplayMessage("You haven't answered all the questions yet!")
@@ -103,11 +98,17 @@ function App() {
 
       setQuizState('finished')
       setScore(correctCount)
-      setDisplayMessage(`You got ${score} out of ${quizData.length} correct!`)
+     
       console.log("This is running ...")
       console.log(correctCount)
     }
   }
+
+  React.useEffect(() => {
+    if(score != "") {
+      setDisplayMessage(`You got ${score} out of ${quizData.length} correct!`)
+    }
+  }, [score])
 
 
 
@@ -122,8 +123,9 @@ function App() {
       {(quizState === 'started' || quizState === 'finished') &&
         <div className={quizState === 'finished' ? 'marked' : ''}>
           {quizQuestions}
-          <button onClick={markAnswers}>Submit</button>
+          {quizState != 'finished' && <button onClick={markAnswers}>Submit</button>}
           {displayMessage && <p>{displayMessage}</p>}
+          {quizState === 'finished' && <button onClick={startQuiz}>Play again</button>}
         </div>
       }
 

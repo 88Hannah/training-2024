@@ -13,9 +13,13 @@ h1 {
 
 
 .marked .option.selected.correct {
-    background-color: green;
+    background-color: limegreen;
 }
 
 .marked .option.selected {
     background-color: red;
+}
+
+.marked .option.correct {
+    background-color: green;
 }
