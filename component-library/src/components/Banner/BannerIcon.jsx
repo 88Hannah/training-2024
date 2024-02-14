@@ -16,28 +16,28 @@ export default function BannerIcon() {
     switch (type) {
         case 'warning':
             icon = (
-                <IconContext.Provider value={{ color: "#FBBF24", size: "20px", className: "myClassName", title:"warning-icon" }}>
+                <IconContext.Provider value={{ color: "#FBBF24", size: "20px", className: "banner__icon", title:"warning-icon" }}>
                     <IoWarning />
                 </IconContext.Provider>
             )
             break;
         case 'success':
             icon = (
-                <IconContext.Provider value={{ color: "#34D399", size: "20px", className: "myClassName", title:"success-icon" }}>
+                <IconContext.Provider value={{ color: "#34D399", size: "20px", className: "banner__icon", title:"success-icon" }}>
                     <IoCheckmarkCircle />
                 </IconContext.Provider>
             )
             break;
         case 'error':
             icon = (
-                <IconContext.Provider value={{ color: "#F87171", size: "20px", className: "myClassName", title:"error-icon" }}>
+                <IconContext.Provider value={{ color: "#F87171", size: "20px", className: "banner__icon", title:"error-icon" }}>
                     <IoCloseCircle />
                 </IconContext.Provider>
             )
             break;
         default:
             icon = (
-                <IconContext.Provider value={{ color: "#60A5FA", size: "20px", className: "myClassName", title:"information-icon" }}>
+                <IconContext.Provider value={{ color: "#60A5FA", size: "20px", className: "banner__icon", title:"information-icon" }}>
                     <IoInformationCircle />
                 </IconContext.Provider>
             )

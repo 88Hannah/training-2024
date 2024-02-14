@@ -2,6 +2,7 @@ body {
     font-family: system-ui, sans-serif;
     font-weight: normal;
     background-color: rgb(230, 230, 235);
+    padding: 2rem;
 }
 
 .badge {
@@ -71,6 +72,10 @@ body {
     padding: 16px;
     background-color: #EFF6FF;
     color: #1E40AF;
+}
+
+.banner__icon {
+    flex-shrink: 0;
 }
 
 .banner .banner__text {
