@@ -1,5 +1,12 @@
-import Badge from "./components/Badge/Badge"
-import Banner from "./components/Banner/index"
+import React from 'react';
+import { IoWarning } from "react-icons/io5";
+
+
+
+
+import Badge from "./components/Badge/Badge";
+import Banner from "./components/Banner/index";
+import Card from "./components/Card/index";
 
 export default function App() {
 
@@ -7,6 +14,19 @@ export default function App() {
   return (
     <>
       <h1>Component Library</h1>
+
+      <section>
+        <h2>Cards</h2>
+
+        <Card>
+          <Card.Icon><IoWarning /></Card.Icon>
+          <Card.Title>The Title</Card.Title>
+          <Card.Text>Here is the text for the card</Card.Text>
+        </Card>
+
+
+
+      </section>
 
       <section>
         <h2>Badges</h2>
