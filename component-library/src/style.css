@@ -60,3 +60,57 @@ body {
     background-color: #FCE7F3;
     color: #9D174D;
 }
+
+
+
+.banner {
+    display: flex;
+    gap: 12px;
+    border-radius: 6px;
+    margin: 8px;
+    padding: 16px;
+    background-color: #EFF6FF;
+    color: #1E40AF;
+}
+
+.banner .banner__text {
+    color: #1C51B9;
+}
+
+.banner.success {
+    background-color: #ECFDF5;
+    color: #065F46;
+}
+
+.banner.success .banner__text {
+    color: #047857;
+}
+
+
+.banner.warning {
+    background-color: #FFFBEB;
+    color: #92400E;
+}
+
+.banner.warning .banner__text {
+    color: #B45309;
+}
+
+.banner.error {
+    background-color: #FEF2F2;
+    color: #92400E;
+}
+
+.banner.error .banner__text {
+    color: #B45309;
+}
+
+.banner__title {
+    font-size: 14px;
+    margin: 0;
+}
+
+.banner__text {
+    font-size: 14px;
+    margin: 12px 0 0;
+}

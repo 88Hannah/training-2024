@@ -1,5 +1,5 @@
 import Badge from "./components/Badge/Badge"
-
+import Banner from "./components/Banner/index"
 
 export default function App() {
 
@@ -86,7 +86,54 @@ export default function App() {
         </div>
       </section>
 
+      <section>
+        <h2>Banners</h2>
+        <div>
+          <h3>Multi line</h3>
+          <div>
+            <Banner type='success'>
+              <Banner.Title>Congratulations!</Banner.Title>
+              <Banner.Text>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid pariatur, ipsum similique veniam.</Banner.Text>
+            </Banner>
 
+            <Banner type='warning'>
+              <Banner.Title>Attention</Banner.Title>
+              <Banner.Text>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid pariatur, ipsum similique veniam quo totam eius aperiam dolorum.</Banner.Text>
+            </Banner>
+
+            <Banner type='error'>
+              <Banner.Title>There is a problem</Banner.Title>
+              <Banner.Text>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid pariatur, ipsum similique veniam quo totam eius aperiam dolorum.</Banner.Text>
+            </Banner>
+
+            <Banner>
+              <Banner.Title>Update available</Banner.Title>
+              <Banner.Text>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid pariatur, ipsum similique veniam.</Banner.Text>
+            </Banner>
+          </div>
+        </div>
+
+        <div>
+          <h3>Single line</h3>
+          <div>
+            <Banner type='success'>
+              <Banner.Title>Congratulations!</Banner.Title>
+            </Banner>
+
+            <Banner type='warning'>
+              <Banner.Title>Attention</Banner.Title>
+            </Banner>
+
+            <Banner type='error'>
+              <Banner.Title>There is a problem</Banner.Title>
+            </Banner>
+
+            <Banner>
+              <Banner.Title>Update available</Banner.Title>
+            </Banner>
+          </div>
+        </div>
+      </section>
     </>
   )
 }
