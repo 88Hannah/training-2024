@@ -1,12 +1,7 @@
-import React from 'react';
-import { IoWarning } from "react-icons/io5";
-
-
-
-
 import Badge from "./components/Badge/Badge";
 import Banner from "./components/Banner/index";
 import Card from "./components/Card/index";
+import Tooltip from "./components/Tooltip/index"
 
 export default function App() {
 
@@ -14,7 +9,31 @@ export default function App() {
   return (
     <>
       <h1>Component Library</h1>
-      
+
+      <section>
+        <h2>Tooltips</h2>
+
+        <p>Here is some text with a <Tooltip
+          icon='pizza'
+          color='pink'
+          style='light'
+          title='The title'
+          text='The text'
+        >link
+        </Tooltip>.</p>
+
+
+        <p>Here is some more text, the <Tooltip
+          icon='bulb'
+          color='blue'
+          style='bold'
+          title='The title'
+          text='The text'
+        >link
+        </Tooltip> is different this time.</p>
+
+      </section>
+
       <section>
         <h2>Badges</h2>
         <div>
