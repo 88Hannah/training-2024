@@ -14,20 +14,7 @@ export default function App() {
   return (
     <>
       <h1>Component Library</h1>
-
-      <section>
-        <h2>Cards</h2>
-
-        <Card>
-          <Card.Icon><IoWarning /></Card.Icon>
-          <Card.Title>The Title</Card.Title>
-          <Card.Text>Here is the text for the card</Card.Text>
-        </Card>
-
-
-
-      </section>
-
+      
       <section>
         <h2>Badges</h2>
         <div>
@@ -152,6 +139,31 @@ export default function App() {
               <Banner.Title>Update available</Banner.Title>
             </Banner>
           </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Cards</h2>
+
+        <div className="card-display-container">
+          <Card>
+            <Card.Icon icon='cloud' color='green'></Card.Icon>
+            <Card.Title>Easy Deployment</Card.Title>
+            <Card.Text>Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.</Card.Text>
+          </Card>
+
+          <Card>
+            <Card.Icon></Card.Icon>
+            <Card.Title>Default Card</Card.Title>
+            <Card.Text>This is what happens if you don't give the card a spesific icon</Card.Text>
+          </Card>
+
+          <Card>
+            <Card.Icon icon='airplane' color='red'></Card.Icon>
+            <Card.Title>Travel</Card.Title>
+            <Card.Text>Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.</Card.Text>
+          </Card>
+
         </div>
       </section>
     </>

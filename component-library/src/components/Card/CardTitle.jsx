@@ -1,6 +1,6 @@
 export default function CardTitle({children}) {
     return (
-        <h4 className='banner__title'>
+        <h4 className='card__title'>
             {children}
         </h4>
     )
