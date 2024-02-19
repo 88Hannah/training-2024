@@ -1,0 +1,395 @@
+body {
+    font-family: system-ui, sans-serif;
+    font-weight: normal;
+    background-color: rgb(230, 230, 235);
+    box-sizing: border-box;
+    margin: 0;
+    padding: 2rem;
+}
+
+section {
+    max-width: 1400px;
+}
+
+
+/* BADGE COMPONENT */
+
+.badge {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    padding: 2px 12px 4px;
+    margin: 8px;
+}
+
+.square {
+    border-radius: 4px;
+}
+
+.pill {
+    border-radius: 12px;
+}
+
+.badge.gray {
+    background-color: #F3F4F6;
+    color: #1F2937;
+}
+
+.badge.red {
+    background-color: #FEE2E2;
+    color: #991B1B;
+}
+
+.badge.yellow {
+    background-color: #FEF3C7;
+    color: #92400E;
+}
+
+.badge.green {
+    background-color: #D1FAE5;
+    color: #065F46;
+}
+
+.badge.blue {
+    background-color: #DBEAFE;
+    color: #1E40AF;
+}
+
+.badge.indigo {
+    background-color: #E0E7FF;
+    color: #3730A3;
+}
+
+.badge.purple {
+    background-color: #EDE9FE;
+    color: #5B21B6;
+}
+
+.badge.pink {
+    background-color: #FCE7F3;
+    color: #9D174D;
+}
+
+
+/* BANNER COMPONENT */
+
+.banner {
+    display: flex;
+    gap: 12px;
+    border-radius: 6px;
+    margin: 8px;
+    padding: 16px;
+    background-color: #EFF6FF;
+    color: #1E40AF;
+}
+
+.banner__icon {
+    flex-shrink: 0;
+}
+
+.banner .banner__text {
+    color: #1C51B9;
+}
+
+.banner.success {
+    background-color: #ECFDF5;
+    color: #065F46;
+}
+
+.banner.success .banner__text {
+    color: #047857;
+}
+
+.banner.warning {
+    background-color: #FFFBEB;
+    color: #92400E;
+}
+
+.banner.warning .banner__text {
+    color: #B45309;
+}
+
+.banner.error {
+    background-color: #FEF2F2;
+    color: #92400E;
+}
+
+.banner.error .banner__text {
+    color: #B45309;
+}
+
+.banner__title {
+    font-size: 14px;
+    margin: 0;
+}
+
+.banner__text {
+    font-size: 14px;
+    margin: 12px 0 0;
+}
+
+
+/* CARD COMPONENT */
+
+.card {
+    position: relative;
+    background-color: white;
+    border-radius: 8px;
+    padding: 56px 32px 24px;
+    margin: 40px 0px 16px;
+    text-align: center;
+    max-width: 100%;
+}
+
+.card:hover {
+    box-shadow: 0 4px 25px 0px rgba(0, 0, 0, 0.1);
+}
+
+.icon-container {
+    height: 48px;
+    width: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    position: absolute;
+    left: calc(50% - 24px);
+    top: -24px;
+}
+
+.card__title {
+    font-size: 18px;
+    font-weight: 500;
+    margin-top: 0;
+}
+
+.card__text {
+    font-size: 16px;
+    color: #6B7280;
+}
+
+/* For displaying the card compoent in the app */
+
+.card-display-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.card-display-container > .card {
+    flex: 1 0 0;
+
+}
+
+
+
+
+
+
+
+/* TOOLTIP COMPONENT */
+
+.tooltip-container {
+    position: relative;
+}
+
+.tooltip-link {
+    cursor: pointer;
+    text-decoration: underline;
+    color: blue;
+}
+
+.tooltip {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+    border-radius: 8px;
+    width: 300px;
+    max-width: 100vw;
+    background-color: #262626;
+    position: absolute;
+    bottom: 40px;
+    left: -60px;
+}
+
+.tooltip::after {
+    content: '';
+    border: 16px solid transparent;
+    border-top: 16px solid #262626;
+    position: absolute;
+    bottom: -32px;
+    left: 52px;
+}
+
+.tooltip__title {
+    margin-top: 0;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #FFFFFF;
+}
+
+.tooltip__text {
+    margin: 0;
+    font-size: 14px;
+    color: #C7C7C7;
+}
+
+
+.tooltip .tooltip__icon {
+    flex-shrink: 0;
+    color: #C7C7C7;
+}
+
+.tooltip .close-icon {
+    color: #D7D7D7;
+}
+
+
+.tooltip.blue {
+    background-color: #1E40AF;
+}
+.tooltip.blue::after {
+    border-top-color: #1E40AF;
+}
+.tooltip.blue .tooltip__title {
+    color: #FFFFFF;
+}
+
+.tooltip.blue .tooltip__text {
+    color: #E8EDFF;
+}
+
+.tooltip.blue .tooltip__icon {
+    color: #7EA6F2
+}
+
+
+.tooltip.pink {
+    background-color: #A9229B;
+}
+.tooltip.pink::after {
+    border-top-color: #A9229B;
+}
+.tooltip.pink .tooltip__title {
+    color: #FFFFFF;
+}
+
+.tooltip.pink .tooltip__text {
+    color: #FFE9FD;
+}
+
+.tooltip.pink .tooltip__icon {
+    color: #F462E6
+}
+
+
+.tooltip.green {
+    background-color: #47AA5D;
+}
+.tooltip.green::after {
+    border-top-color: #47AA5D;
+}
+.tooltip.green .tooltip__title {
+    color: #FFFFFF;
+}
+
+.tooltip.green .tooltip__text {
+    color: #E3FFE9;
+}
+
+.tooltip.green .tooltip__icon {
+    color: #C1FFCF
+}
+
+
+.tooltip.light {
+    background-color: #FFFFFF;
+}
+.tooltip.light::after {
+    border-top-color: #FFFFFF;
+}
+.tooltip.light .tooltip__title {
+    color: #111827;
+}
+
+.tooltip.light .tooltip__text {
+    color: #6B7280;
+}
+
+.tooltip.light .tooltip__icon,
+.tooltip.light .close-icon {
+    color: #6B7280
+}
+
+
+.tooltip.light.blue {
+    background-color: #E0E7FF;
+}
+.tooltip.light.blue::after {
+    border-top-color: #E0E7FF;
+}
+.tooltip.light.blue {
+    border-top-color: #E0E7FF;
+}
+.tooltip.light.blue .tooltip__title {
+    color: #1E40AF;
+}
+
+.tooltip.light.blue .tooltip__text {
+    color: #1C51B9;
+}
+
+.tooltip.light.blue .tooltip__icon,
+.tooltip.light.blue .close-icon {
+    color: #1C51B9
+}
+
+.tooltip.light.pink {
+    background-color: #FFF3FC;
+}
+.tooltip.light.pink::after {
+    border-top-color: #FFF3FC;
+}
+.tooltip.light.pink .tooltip__title {
+    color: #A9229B;
+}
+
+.tooltip.light.pink .tooltip__text {
+    color: #C7369E;
+}
+
+.tooltip.light.pink .tooltip__icon,
+.tooltip.light.pink .close-icon {
+    color: #C7369E
+}
+
+
+.tooltip.light.green {
+    background-color: #E7FFF3;
+}
+.tooltip.light.green::after {
+    border-top-color: #E7FFF3;
+}
+.tooltip.light.green .tooltip__title {
+    color: #137A2A;
+}
+
+.tooltip.light.green .tooltip__text {
+    color: #3C8C4E;
+}
+
+.tooltip.light.green .tooltip__icon,
+.tooltip.light.green .close-icon {
+    color: #41A557
+}
+
+.tooltip__close {
+    background: none;
+    border: transparent;
+    padding: 0;
+    cursor: pointer;
+    margin-left: auto;
+}
