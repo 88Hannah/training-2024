@@ -1,7 +1,8 @@
 import Badge from "./components/Badge/Badge";
 import Banner from "./components/Banner/index";
 import Card from "./components/Card/index";
-import Tooltip from "./components/Tooltip/index"
+import Tooltip from "./components/Tooltip/index";
+import { IoBugOutline } from "react-icons/io5";
 
 export default function App() {
 
@@ -9,30 +10,6 @@ export default function App() {
   return (
     <>
       <h1>Component Library</h1>
-
-      <section>
-        <h2>Tooltips</h2>
-
-        <p>Here is some text with a <Tooltip
-          icon='pizza'
-          color='pink'
-          style='light'
-          title='The title'
-          text='The text'
-        >link
-        </Tooltip>.</p>
-
-
-        <p>Here is some more text, the <Tooltip
-          icon='bulb'
-          color='blue'
-          style='bold'
-          title='The title'
-          text='The text'
-        >link
-        </Tooltip> is different this time.</p>
-
-      </section>
 
       <section>
         <h2>Badges</h2>
@@ -184,6 +161,109 @@ export default function App() {
           </Card>
 
         </div>
+      </section>
+
+      <section>
+        <h2>Tooltips</h2>
+
+        <div>
+          <h3>Bold tooltips</h3>
+
+          <p>The first set of tooltips in this component library are the&nbsp;
+            <Tooltip
+              title='Standard tooltip'
+              text='This is the standard tooptip which uses the default colours and icon.'
+            >bold
+            </Tooltip> 
+            
+            &nbsp;tooltips.
+          </p>
+
+          <p>The colour variations are&nbsp;
+
+            <Tooltip
+              icon={<IoBugOutline />}
+              color='pink'
+              title='Pink and bold'
+              text='This tooltip is pink and bold. It is using the bug icon which is entered as a React icon component. This tooltip is pink and bold. It is using the bug icon which is entered as a React icon component.'
+            > pink
+            </Tooltip>
+            
+            ,&nbsp;
+
+            <Tooltip
+              icon='pizza'
+              color='green'
+              title='Green and bold'
+              text='This green tooltip is making use of the predefined pizza icon.'
+            >green
+            </Tooltip>
+            
+            , and&nbsp;
+
+            <Tooltip
+              icon='rocket'
+              color='blue'
+              title='Blue and bold'
+              text='Zoooom! Here we are using the rocket icon!'
+            >blue
+            </Tooltip>
+            
+          .</p>
+        </div>
+
+        <div>
+          <h3>Light tooltips</h3>
+
+          <p>The second set of tooltips are&nbsp;
+            
+            <Tooltip
+              icon='accessibility'
+              style='light'
+              title='Standard light'
+              text='This is the standard light tooltip with the accessibility icon.'
+            >light
+            </Tooltip>
+        
+          .</p>
+
+          <p>The same colour variations are available:&nbsp;
+            
+            <Tooltip
+              icon='paw'
+              color='pink'
+              style='light'
+              title='Pink and light'
+              text='Woof woof! This is the paw icon.'
+            > pink
+            </Tooltip>
+            
+            ,&nbsp;
+
+            <Tooltip
+              icon='calendar'
+              color='green'
+              style='light'
+              title='Green and light'
+              text='Here we have the calendar icon.'
+            >green
+            </Tooltip>
+            
+            , and&nbsp;
+
+            <Tooltip
+              icon='balloon'
+              color='blue'
+              style='light'
+              title='Blue and light'
+              text='This one seems perfect for the balloon icon - floating off into the sky!'
+            >blue
+            </Tooltip>
+          
+          .</p>
+
+        </div>
+
       </section>
     </>
   )

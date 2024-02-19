@@ -191,16 +191,28 @@ section {
 
 /* TOOLTIP COMPONENT */
 
+.tooltip-container {
+    position: relative;
+}
+
+.tooltip-link {
+    cursor: pointer;
+    text-decoration: underline;
+    color: blue;
+}
+
 .tooltip {
     display: flex;
     align-items: flex-start;
     gap: 12px;
-    position: relative;
     padding: 16px;
     border-radius: 8px;
     width: 300px;
     max-width: 100vw;
     background-color: #262626;
+    position: absolute;
+    bottom: 40px;
+    left: -60px;
 }
 
 .tooltip::after {
@@ -227,6 +239,7 @@ section {
 
 
 .tooltip .tooltip__icon {
+    flex-shrink: 0;
     color: #C7C7C7;
 }
 
@@ -312,9 +325,11 @@ section {
 }
 
 
-.tooltip.light.blue,
-.tooltip.light.blue::after {
+.tooltip.light.blue {
     background-color: #E0E7FF;
+}
+.tooltip.light.blue::after {
+    border-top-color: #E0E7FF;
 }
 .tooltip.light.blue {
     border-top-color: #E0E7FF;
@@ -352,11 +367,10 @@ section {
 }
 
 
-.tooltip.light.green,
-.tooltip.light.green::after {
+.tooltip.light.green {
     background-color: #E7FFF3;
 }
-.tooltip.light.green {
+.tooltip.light.green::after {
     border-top-color: #E7FFF3;
 }
 .tooltip.light.green .tooltip__title {
@@ -378,24 +392,4 @@ section {
     padding: 0;
     cursor: pointer;
     margin-left: auto;
-}
-
-.tooltip__close:hover {
-    background: #047857;
-}
-
-
-
-
-.tooltip-link {
-    position: relative;
-    cursor: pointer;
-    text-decoration: underline;
-    color: blue;
-}
-
-.tooltip {
-    position: absolute;
-    bottom: 40px;
-    left: -60px;
 }

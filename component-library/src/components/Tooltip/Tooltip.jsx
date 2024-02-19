@@ -8,11 +8,10 @@ const TooltipContext = React.createContext()
 
 export default function Tooltip({children, icon, color, style, title, text}) {
 
-    const [on, turnOn, turnOff] = useToggle({
-        initialValue: false,
-        onToggle: ()=> console.log("Do something")
-    })
+    const [on, turnOn, turnOff] = useToggle({initialValue: false})
     
+    const tooltipRef = React.useRef(null);
+
     const tooltipInfo = {
         icon,
         color,
@@ -21,15 +20,32 @@ export default function Tooltip({children, icon, color, style, title, text}) {
         text, 
         open: on,
         turnOn,
-        turnOff
+        turnOff,
+        tooltipRef
     }
+
+
+    const handleOutsideClick = (e) => {
+        if (tooltipRef.current && !tooltipRef.current.contains(e.target)) {
+            turnOff();
+        }
+      };
+
+    React.useEffect(() => {
+        document.addEventListener("mousedown", handleOutsideClick);
+        return () => {
+          document.removeEventListener("mousedown", handleOutsideClick);
+        };
+      });
 
     return (
         
         <TooltipContext.Provider value={tooltipInfo}>
-            <TooltipLink linkText={children}>
+            <span className='tooltip-container'>
+                <TooltipLink linkText={children}>
+                </TooltipLink>
                 <TooltipPopup></TooltipPopup>
-            </TooltipLink>
+            </span>
         </TooltipContext.Provider>
          
     )

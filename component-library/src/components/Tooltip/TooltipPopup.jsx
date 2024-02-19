@@ -7,14 +7,14 @@ import { TooltipContext } from './Tooltip'
 
 export default function TooltipPopup() {
 
-    const {icon, color, style, title, text, open} = React.useContext(TooltipContext)
+    const {icon, color, style, title, text, open, tooltipRef} = React.useContext(TooltipContext)
 
     const styles = {
         display: open ? 'flex' : 'none'
     }
 
     return (
-        <div className={`tooltip ${style} ${color}`} style={styles}>
+        <div className={`tooltip ${style} ${color}`} style={styles} ref={tooltipRef}>
             <TooltipIcon icon={icon}></TooltipIcon>
             <div>
                 <TooltipTitle>{title}</TooltipTitle>
