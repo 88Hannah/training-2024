@@ -20,10 +20,10 @@ function App() {
           <Route path='/about' element={<About />} />
           <Route path='/vans' element={<Vans /> } />
           <Route path='/vans/:id' element={<VanDetail />} />
-          <Route element={<HostLayout />}>
-            <Route path='/host' element={<Dashboard />} />
-            <Route path='/host/income' element={<Income />} />
-            <Route path='/host/review' element={<Review />} />
+          <Route path='/host' element={<HostLayout />}>
+            <Route index element={<Dashboard />} />
+            <Route path='income' element={<Income />} />
+            <Route path='review' element={<Review />} />
           </Route>
         </Route>
       </Routes>
