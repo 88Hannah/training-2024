@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
 
 export default function Header() {
@@ -11,7 +11,7 @@ export default function Header() {
 
     return (
         <header>
-            <NavLink className="site-logo" to="/">#VanLife</NavLink>
+            <Link className="site-logo" to="/">#VanLife</Link>
             <nav>
                 <NavLink 
                     to='/host'
