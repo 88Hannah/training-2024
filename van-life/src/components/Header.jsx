@@ -34,6 +34,13 @@ export default function Header() {
                     Vans
                 </NavLink>
 
+                <Link to="login" className="login-link">
+                    <img 
+                        src="https://scrimba.com/blobs/sha1:436bc1225ebc08ad811df8f56659e578af60cc98.png" 
+                        className="login-icon"
+                    />
+                </Link>
+
             </nav>
         </header>
     )
