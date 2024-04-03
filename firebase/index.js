@@ -1,6 +1,6 @@
 /* === Imports === */
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js'
-import { getAuth, createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js'
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js'
 
 /* === Firebase Setup === */
 /* IMPORTANT: Replace this with your own firebaseConfig when doing challenges */
@@ -49,7 +49,17 @@ function authSignInWithGoogle() {
 }
 
 function authSignInWithEmail() {
-    console.log("Sign in with email and password")
+    const email = emailInputEl.value
+    const password = passwordInputEl.value
+    signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            showLoggedInView()
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.error(errorCode, errorMessage)
+        });
 }
 
 function authCreateAccountWithEmail() {
