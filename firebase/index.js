@@ -5,7 +5,9 @@ import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     signOut,
-    onAuthStateChanged
+    onAuthStateChanged,
+    signInWithPopup,
+    GoogleAuthProvider
 } from 'https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js'
 
 /* === Firebase Setup === */
@@ -19,6 +21,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig)
 const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
 
 /* === UI === */
 
@@ -50,18 +53,23 @@ signOutButtonEl.addEventListener("click", authSignOut)
 
 onAuthStateChanged(auth, (user) => {
     if (user) {
-      showLoggedInView()
+        showLoggedInView()
     } else {
-      showLoggedOutView()
+        showLoggedOutView()
     }
-  });
+});
 
 /* === Functions === */
 
 /* = Functions - Firebase - Authentication = */
 
 function authSignInWithGoogle() {
-    console.log("Sign in with Google")
+    signInWithPopup(auth, provider)
+        .then((result) => {
+            console.log("Signed in with Google")
+        }).catch((error) => {
+            console.log(error.message)
+        });
 }
 
 function authSignInWithEmail() {
