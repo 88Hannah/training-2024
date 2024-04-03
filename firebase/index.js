@@ -1,6 +1,11 @@
 /* === Imports === */
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js'
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js'
+import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    signOut
+} from 'https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js'
 
 /* === Firebase Setup === */
 /* IMPORTANT: Replace this with your own firebaseConfig when doing challenges */
@@ -29,12 +34,16 @@ const passwordInputEl = document.getElementById("password-input")
 const signInButtonEl = document.getElementById("sign-in-btn")
 const createAccountButtonEl = document.getElementById("create-account-btn")
 
+const signOutButtonEl = document.getElementById("sign-out-btn")
+
 /* == UI - Event Listeners == */
 
 signInWithGoogleButtonEl.addEventListener("click", authSignInWithGoogle)
 
 signInButtonEl.addEventListener("click", authSignInWithEmail)
 createAccountButtonEl.addEventListener("click", authCreateAccountWithEmail)
+
+signOutButtonEl.addEventListener("click", authSignOut)
 
 /* === Main Code === */
 
@@ -53,6 +62,7 @@ function authSignInWithEmail() {
     const password = passwordInputEl.value
     signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
+            clearAuthFields()
             showLoggedInView()
         })
         .catch((error) => {
@@ -67,6 +77,7 @@ function authCreateAccountWithEmail() {
     const password = passwordInputEl.value
     createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
+            clearAuthFields()
             showLoggedInView()
         })
         .catch((error) => {
@@ -76,22 +87,39 @@ function authCreateAccountWithEmail() {
         });
 }
 
+function authSignOut() {
+    signOut(auth).then(() => {
+        showLoggedOutView()
+      }).catch((error) => {
+        console.error(error.message)
+      });
+}
+
 /* == Functions - UI Functions == */
 
 function showLoggedOutView() {
-    hideElement(viewLoggedIn)
-    showElement(viewLoggedOut)
+    hideView(viewLoggedIn)
+    showView(viewLoggedOut)
 }
 
 function showLoggedInView() {
-    hideElement(viewLoggedOut)
-    showElement(viewLoggedIn)
+    hideView(viewLoggedOut)
+    showView(viewLoggedIn)
 }
 
-function showElement(element) {
-    element.style.display = "flex"
+function showView(view) {
+    view.style.display = "flex"
 }
 
-function hideElement(element) {
-    element.style.display = "none"
+function hideView(view) {
+    view.style.display = "none"
+}
+
+function clearInputField(field) {
+	field.value = ""
+}
+
+function clearAuthFields() {
+	clearInputField(emailInputEl)
+	clearInputField(passwordInputEl)
 }
