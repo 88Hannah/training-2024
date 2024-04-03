@@ -4,7 +4,8 @@ import {
     getAuth,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
-    signOut
+    signOut,
+    onAuthStateChanged
 } from 'https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js'
 
 /* === Firebase Setup === */
@@ -47,7 +48,13 @@ signOutButtonEl.addEventListener("click", authSignOut)
 
 /* === Main Code === */
 
-showLoggedOutView()
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+      showLoggedInView()
+    } else {
+      showLoggedOutView()
+    }
+  });
 
 /* === Functions === */
 
@@ -63,7 +70,6 @@ function authSignInWithEmail() {
     signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             clearAuthFields()
-            showLoggedInView()
         })
         .catch((error) => {
             const errorCode = error.code;
@@ -78,7 +84,6 @@ function authCreateAccountWithEmail() {
     createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             clearAuthFields()
-            showLoggedInView()
         })
         .catch((error) => {
             const errorCode = error.code;
@@ -89,10 +94,9 @@ function authCreateAccountWithEmail() {
 
 function authSignOut() {
     signOut(auth).then(() => {
-        showLoggedOutView()
-      }).catch((error) => {
+    }).catch((error) => {
         console.error(error.message)
-      });
+    });
 }
 
 /* == Functions - UI Functions == */
@@ -116,10 +120,10 @@ function hideView(view) {
 }
 
 function clearInputField(field) {
-	field.value = ""
+    field.value = ""
 }
 
 function clearAuthFields() {
-	clearInputField(emailInputEl)
-	clearInputField(passwordInputEl)
+    clearInputField(emailInputEl)
+    clearInputField(passwordInputEl)
 }
