@@ -7,7 +7,8 @@ import {
     signOut,
     onAuthStateChanged,
     signInWithPopup,
-    GoogleAuthProvider
+    GoogleAuthProvider,
+    updateProfile
 } from 'https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js'
 
 /* === Firebase Setup === */
@@ -40,6 +41,13 @@ const createAccountButtonEl = document.getElementById("create-account-btn")
 
 const signOutButtonEl = document.getElementById("sign-out-btn")
 
+const userProfilePictureEl = document.getElementById("user-profile-picture")
+const userGreetingEl = document.getElementById("user-greeting")
+
+const displayNameInputEl = document.getElementById("display-name-input")
+const photoURLInputEl = document.getElementById("photo-url-input")
+const updateProfileButtonEl = document.getElementById("update-profile-btn")
+
 /* == UI - Event Listeners == */
 
 signInWithGoogleButtonEl.addEventListener("click", authSignInWithGoogle)
@@ -49,11 +57,15 @@ createAccountButtonEl.addEventListener("click", authCreateAccountWithEmail)
 
 signOutButtonEl.addEventListener("click", authSignOut)
 
+updateProfileButtonEl.addEventListener("click", authUpdateProfile)
+
 /* === Main Code === */
 
 onAuthStateChanged(auth, (user) => {
     if (user) {
         showLoggedInView()
+        showProfilePicture(userProfilePictureEl, user)
+        showUserGreeting(userGreetingEl, user)
     } else {
         showLoggedOutView()
     }
@@ -107,6 +119,36 @@ function authSignOut() {
     });
 }
 
+function authUpdateProfile() {
+    const newDisplayName = displayNameInputEl.value
+    const newPhotoURL = photoURLInputEl.value
+
+    let newDetails
+
+    if (newDisplayName != "" && newPhotoURL != "") {
+        newDetails = {
+            displayName: newDisplayName,
+            photoURL: newPhotoURL
+        }
+    } else if (newDisplayName != "") {
+        newDetails = {
+            displayName: newDisplayName
+        }
+    } else if (newPhotoURL != "") {
+        newDetails = {
+            photoURL: newPhotoURL
+        }
+    }
+    
+
+    updateProfile(auth.currentUser, newDetails).then(() => {
+        showUserGreeting(userGreetingEl, auth.currentUser)
+        console.log("Profile updated!")
+    }).catch((error) => {
+        console.error(error.message)
+    });
+}
+
 /* == Functions - UI Functions == */
 
 function showLoggedOutView() {
@@ -134,4 +176,23 @@ function clearInputField(field) {
 function clearAuthFields() {
     clearInputField(emailInputEl)
     clearInputField(passwordInputEl)
+}
+
+function showProfilePicture(imgElement, user) {
+    const photoURL = user.photoURL
+
+    if (photoURL) {
+        imgElement.src = photoURL
+    } else {
+        imgElement.src = "assets/images/default-profile-picture.jpeg"
+    }
+}
+
+function showUserGreeting(element, user) {
+    if (user.displayName) {
+        let name = user.displayName.split(" ")[0]
+        element.textContent = `Hey ${name}, how are you?`
+    } else {
+        element.textContent = "Hey friend, how are you?"
+    }
 }
