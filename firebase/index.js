@@ -9,7 +9,7 @@ import {
     signInWithPopup,
     GoogleAuthProvider
 } from 'https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js'
-import { getFirestore, collection, addDoc } from 'https://www.gstatic.com/firebasejs/10.6.0/firebase-firestore.js'
+import { getFirestore, collection, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.6.0/firebase-firestore.js'
 
 /* === Firebase Setup === */
 /* IMPORTANT: Replace this with your own firebaseConfig when doing challenges */
@@ -120,11 +120,11 @@ function authSignOut() {
 }
 
 async function addPostToDB(postBody, user) {
-    console.log(user)
     try {
         const docRef = await addDoc(collection(db, "posts"), {
             body: postBody,
-            uid: user.uid
+            uid: user.uid,
+            timestamp: serverTimestamp()
         });
         console.log("Document written with ID: ", docRef.id);
     } catch (error) {
