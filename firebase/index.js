@@ -7,9 +7,9 @@ import {
     signOut,
     onAuthStateChanged,
     signInWithPopup,
-    GoogleAuthProvider,
-    updateProfile
+    GoogleAuthProvider
 } from 'https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js'
+import { getFirestore, collection, addDoc } from 'https://www.gstatic.com/firebasejs/10.6.0/firebase-firestore.js'
 
 /* === Firebase Setup === */
 /* IMPORTANT: Replace this with your own firebaseConfig when doing challenges */
@@ -23,6 +23,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig)
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
+const db = getFirestore(app);
 
 /* === UI === */
 
@@ -44,9 +45,8 @@ const signOutButtonEl = document.getElementById("sign-out-btn")
 const userProfilePictureEl = document.getElementById("user-profile-picture")
 const userGreetingEl = document.getElementById("user-greeting")
 
-const displayNameInputEl = document.getElementById("display-name-input")
-const photoURLInputEl = document.getElementById("photo-url-input")
-const updateProfileButtonEl = document.getElementById("update-profile-btn")
+const textareaEl = document.getElementById("post-input")
+const postButtonEl = document.getElementById("post-btn")
 
 /* == UI - Event Listeners == */
 
@@ -57,7 +57,7 @@ createAccountButtonEl.addEventListener("click", authCreateAccountWithEmail)
 
 signOutButtonEl.addEventListener("click", authSignOut)
 
-updateProfileButtonEl.addEventListener("click", authUpdateProfile)
+postButtonEl.addEventListener("click", postButtonPressed)
 
 /* === Main Code === */
 
@@ -119,37 +119,34 @@ function authSignOut() {
     });
 }
 
-function authUpdateProfile() {
-    const newDisplayName = displayNameInputEl.value
-    const newPhotoURL = photoURLInputEl.value
-
-    let newDetails
-
-    if (newDisplayName != "" && newPhotoURL != "") {
-        newDetails = {
-            displayName: newDisplayName,
-            photoURL: newPhotoURL
-        }
-    } else if (newDisplayName != "") {
-        newDetails = {
-            displayName: newDisplayName
-        }
-    } else if (newPhotoURL != "") {
-        newDetails = {
-            photoURL: newPhotoURL
-        }
+async function addPostToDB(postBody, user) {
+    console.log(user)
+    try {
+        const docRef = await addDoc(collection(db, "posts"), {
+            body: postBody,
+            uid: user.uid
+        });
+        console.log("Document written with ID: ", docRef.id);
+    } catch (error) {
+        console.error("Error adding document: ", error);
     }
-    
 
-    updateProfile(auth.currentUser, newDetails).then(() => {
-        showUserGreeting(userGreetingEl, auth.currentUser)
-        console.log("Profile updated!")
-    }).catch((error) => {
-        console.error(error.message)
-    });
+
+
 }
 
+
 /* == Functions - UI Functions == */
+
+function postButtonPressed() {
+    const postBody = textareaEl.value
+    const user = auth.currentUser
+
+    if (postBody) {
+        addPostToDB(postBody, user)
+        clearInputField(textareaEl)
+    }
+}
 
 function showLoggedOutView() {
     hideView(viewLoggedIn)
