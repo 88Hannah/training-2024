@@ -17,7 +17,10 @@ import {
     onSnapshot,
     query,
     where,
-    orderBy
+    orderBy,
+    updateDoc,
+    doc,
+    deleteDoc
 } from 'https://www.gstatic.com/firebasejs/10.6.0/firebase-firestore.js'
 
 /* === Firebase Setup === */
@@ -166,13 +169,25 @@ async function addPostToDB(postBody, user) {
         console.error("Error adding document: ", error);
     }
 }
+ 
+async function updatePostInDB(docId, newBody) {
+    const editPostRef = doc(db, collectionName, docId);
+
+    await updateDoc(editPostRef, {
+        body: newBody
+    })
+}
+
+async function deletePostFromDB(docId) {
+    await deleteDoc(doc(db, collectionName, docId))
+}
 
 function fetchInRealtimeAndRenderPostsFromDB(query) {
     onSnapshot(query, (querySnapshot) => {
         clearAll(postsEl)
 
         querySnapshot.forEach(doc => {
-            renderPost(postsEl, doc.data())
+            renderPost(postsEl, doc)
         })
     })
 }
@@ -247,19 +262,104 @@ function fetchAllPosts(user) {
 
 /* == Functions - UI Functions == */
 
-function renderPost(postsEl, postData) {
+function createPostHeader(postData) {
+    /*
+        <div class="header">
+        </div>
+    */
+    const headerDiv = document.createElement("div")
+    headerDiv.className = "header"
+    
+        /* 
+            <h3>21 Sep 2023 - 14:35</h3>
+        */
+        const headerDate = document.createElement("h3")
+        headerDate.textContent = displayDate(postData.createdAt)
+        headerDiv.appendChild(headerDate)
+        
+        /* 
+            <img src="assets/emojis/5.png">
+        */
+        const moodImage = document.createElement("img")
+        moodImage.src = `assets/emojis/${postData.mood}.png`
+        headerDiv.appendChild(moodImage)
+        
+    return headerDiv
+}
 
-    postsEl.insertAdjacentHTML("beforeend", 
-        `<div class="post">
-            <div class="header">
-                <h3>${displayDate(postData.createdAt)}</h3>
-                <img src="assets/emojis/${postData.mood}.png">
-            </div>
-            <p>
-                ${replaceNewlinesWithBrTags(postData.body)}
-            </p>
-        </div>`
-    )
+function createPostBody(postData) {
+    /*
+        <p>This is a post</p>
+    */
+    const postBody = document.createElement("p")
+    postBody.innerHTML = replaceNewlinesWithBrTags(postData.body)
+    
+    return postBody
+}
+
+function createPostUpdateButton(wholeDoc) {
+    const postId = wholeDoc.id
+    const postData = wholeDoc.data()
+    
+    /* 
+        <button class="edit-color">Edit</button>
+    */
+    const button = document.createElement("button")
+    button.textContent = "Edit"
+    button.classList.add("edit-color")
+    button.addEventListener("click", function() {
+        const newBody = prompt("Edit the post", postData.body)
+        
+        if (newBody) {
+            updatePostInDB(postId, newBody)
+        }
+    })
+    
+    return button
+}
+
+function createPostDeleteButton(wholeDoc) {
+    const postId = wholeDoc.id
+    
+    /* 
+        <button class="delete-color">Delete</button>
+    */
+    const button = document.createElement('button')
+    button.textContent = 'Delete'
+    button.classList.add("delete-color")
+    button.addEventListener('click', function() {
+        deletePostFromDB(postId)
+    })
+    return button
+}
+
+function createPostFooter(wholeDoc) {
+    /* 
+        <div class="footer">
+            <button>Edit</button>
+            <button>Delete</button>
+        </div>
+    */
+    const footerDiv = document.createElement("div")
+    footerDiv.className = "footer"
+    
+    footerDiv.appendChild(createPostUpdateButton(wholeDoc))
+    footerDiv.appendChild(createPostDeleteButton(wholeDoc))
+    
+    return footerDiv
+}
+
+function renderPost(postsEl, wholeDoc) {
+    const postData = wholeDoc.data()
+
+    const postDiv = document.createElement("div")
+    postDiv.className = "post"
+    
+    postDiv.appendChild(createPostHeader(postData))
+    postDiv.appendChild(createPostBody(postData))
+    postDiv.appendChild(createPostFooter(wholeDoc))
+    
+    postsEl.appendChild(postDiv)
 }
 
 function replaceNewlinesWithBrTags(inputString) {
